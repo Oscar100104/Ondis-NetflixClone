@@ -1,0 +1,32 @@
+.row {
+    margin-left: 20px;
+    color: #ebe7e7;    
+}
+
+.row__posters {
+  display: flex;
+  overflow-x: scroll;
+  padding: 10px 0;
+  gap: 5px;
+}
+
+.row__poster {
+  max-height: 90px;
+  min-width: 200px;   /* ADD THIS */
+  object-fit: cover;
+  border-radius: 1px;
+  transition: transform 0.2s;
+}
+
+.row__poster:hover {
+  transform: scale(1.08);
+}
+
+.row__posterLarge {
+  max-height: 250px;
+  min-width: 200px;   /* ADD THIS */
+}
+
+.row__posters::-webkit-scrollbar {
+  display: none;
+}
