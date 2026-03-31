@@ -1,6 +1,8 @@
 .row {
     margin-left: 20px;
-    color: #ebe7e7;    
+    margin-top: 2px;
+    color: #c5a09a;  
+    font-style: normal;  
 }
 
 .row__posters {
@@ -8,13 +10,14 @@
   overflow-x: scroll;
   padding: 10px 0;
   gap: 5px;
+  border-radius: 2px;
 }
 
 .row__poster {
   max-height: 90px;
   min-width: 200px;   /* ADD THIS */
   object-fit: cover;
-  border-radius: 1px;
+  border-radius: 5px;
   transition: transform 0.2s;
 }
 
