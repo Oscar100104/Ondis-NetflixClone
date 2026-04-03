@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "netflix-clone-a7850"
-  }
+    "default": "netflix-clone-a7850",
+    "staging": "netflix-clone-a7850",
+    "build": "netflix-clone-a7850"
+  },
+  "targets": {},
+  "etags": {}
 }
