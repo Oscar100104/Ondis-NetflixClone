@@ -1,35 +1,64 @@
 .row {
     margin-left: 20px;
     margin-top: 2px;
-    color: #c5a09a;  
-    font-style: normal;  
+    color: #f5f0f0;
+    font-style: normal;
+
+    /* Added for blur effect background */
+    background: rgba(0, 0, 0, 0.3);           /* Semi-transparent black */
+    backdrop-filter: blur(8px);                 /* Blur the background behind this element */
+    -webkit-backdrop-filter: blur(8px);         /* Safari support */
+    border-radius: 5px;                          /* Optional, smooth edges */
+    padding-bottom: 10px;                        /* Add space inside bottom */
 }
 
 .row__posters {
-  display: flex;
-  overflow-x: scroll;
-  padding: 10px 0;
-  gap: 5px;
-  border-radius: 2px;
+    display: flex;
+    overflow-x: scroll;
+    padding: 10px 0;
+    gap: 5px;
+    border-radius: 2px;
+}
+
+.row__posterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+    width: fit-content;
 }
 
 .row__poster {
-  max-height: 90px;
-  min-width: 200px;   /* ADD THIS */
-  object-fit: cover;
-  border-radius: 5px;
-  transition: transform 0.2s;
+    max-height: 90px;
+    min-width: 200px;   /* ADD THIS */
+    object-fit: cover;
+    border-radius: 3px;
+    transition: transform 0.2s;
 }
 
 .row__poster:hover {
-  transform: scale(1.08);
+    transform: scale(1.09);
 }
 
 .row__posterLarge {
-  max-height: 250px;
-  min-width: 200px;   /* ADD THIS */
+    max-height: 250px;
+    min-width: 200px;   /* ADD THIS */
+}
+
+/* NEW STYLE FOR THE MOVIE TITLE BELOW THE POSTER */
+.row__posterTitle {
+    margin-top: 5px;
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 150px;   /* To keep titles tidy */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .row__posters::-webkit-scrollbar {
-  display: none;
+    display: none;
 }

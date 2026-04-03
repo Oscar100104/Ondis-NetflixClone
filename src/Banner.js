@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 import requests from "./requests";
-import "./banner.css"; // make sure the file is named exactly banner.css
+import YouTube from "react-youtube";
+import movieTrailer from "movie-trailer";
+import "./banner.css";
 
 function Banner() {
   const [movie, setMovie] = useState(null);
+  const [trailerUrl, setTrailerUrl] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -23,9 +26,25 @@ function Banner() {
     fetchData();
   }, []);
 
-  // optional: truncate long descriptions
-  const truncate = (str, n) => {
-    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  const truncate = (str, n) => (str?.length > n ? str.substr(0, n - 1) + "..." : str);
+
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: { autoplay: 1 },
+  };
+
+  const handlePlay = () => {
+    if (trailerUrl) {
+      setTrailerUrl(""); // Close modal
+    } else {
+      movieTrailer(movie?.name || movie?.title || movie?.original_name || "")
+        .then((url) => {
+          const urlParams = new URLSearchParams(new URL(url).search);
+          setTrailerUrl(urlParams.get("v"));
+        })
+        .catch((error) => console.log("Trailer not found:", error));
+    }
   };
 
   return (
@@ -43,7 +62,9 @@ function Banner() {
         </h1>
 
         <div className="banner__buttons">
-          <button className="banner__button">Play</button>
+          <button className="banner__button" onClick={handlePlay}>
+            {trailerUrl ? "Close" : "Play"}
+          </button>
           <button className="banner__button">My List</button>
         </div>
 
@@ -53,6 +74,18 @@ function Banner() {
       </div>
 
       <div className="banner--fadeBottom" />
+
+      {/* Trailer Modal */}
+      {trailerUrl && (
+        <div className="banner__trailerModal" onClick={() => setTrailerUrl("")}>
+          <div className="banner__trailerContent" onClick={e => e.stopPropagation()}>
+            <YouTube videoId={trailerUrl} opts={opts} />
+            <button className="banner__closeButton" onClick={() => setTrailerUrl("")}>
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
