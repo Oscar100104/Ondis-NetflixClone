@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "firefirebase ude -- add",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
