@@ -5,7 +5,7 @@ import movieTrailer from "movie-trailer";
 import './Row.css';
 import { APIKEY } from './requests';
 
-const base_url = "https://image.tmdb.org/t/p/original/";
+const base_url = "https://image.tmdb.org/t/p/";
 const fallback = "https://via.placeholder.com/300x169?text=No+Image";
 
 function Row({ fetchUrl, title, isLargeRow, searchTerm }) {
@@ -17,18 +17,19 @@ function Row({ fetchUrl, title, isLargeRow, searchTerm }) {
 
       let request;
 
-      // If searching for a movie
+      // If searching
       if (searchTerm && searchTerm.trim() !== "") {
         request = await axios.get(
           `/search/movie?api_key=${APIKEY}&query=${searchTerm}`
         );
       } 
-      // Otherwise load normal category
-      else {
+      else if (fetchUrl) {
         request = await axios.get(fetchUrl);
       }
 
-      setMovies(request.data.results);
+      if (request) {
+        setMovies(request.data.results);
+      }
     }
 
     fetchData();
@@ -63,17 +64,25 @@ function Row({ fetchUrl, title, isLargeRow, searchTerm }) {
         {movies.map((movie) => {
 
           const imagePath = isLargeRow
-            ? movie.poster_path || movie.backdrop_path
-            : movie.backdrop_path || movie.poster_path;
+            ? movie.poster_path
+            : movie.backdrop_path;
+
+          const imageSize = isLargeRow ? "w500" : "w780";
 
           return (
             <div key={movie.id} className="row__posterContainer">
               <img
+                loading="lazy"
                 onClick={() => handleClick(movie)}
                 className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-                src={imagePath ? `${base_url}${imagePath}` : fallback}
+                src={
+                  imagePath
+                    ? `${base_url}${imageSize}${imagePath}`
+                    : fallback
+                }
                 alt={movie.name || movie.title || "Movie"}
               />
+
               <p className="row__posterTitle">
                 {movie.name || movie.title}
               </p>
