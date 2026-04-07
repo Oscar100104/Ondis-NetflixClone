@@ -60,7 +60,7 @@
 .nav__avatar {
   width: 35px;
   cursor: pointer;
-  border-radius: 2%;
+  border-radius: 50%;
   margin-top: 1px;
 }
 
